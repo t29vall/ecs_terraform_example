@@ -16,6 +16,9 @@ resource "aws_lb_target_group" "dashboard" {
     port = 80
     protocol = "HTTP"
     vpc_id = var.vpc-id
+    health_check {
+      path = "/"
+    }
 }
 
 resource "aws_lb_target_group" "analytics" {
@@ -23,6 +26,9 @@ resource "aws_lb_target_group" "analytics" {
     port = 80
     protocol = "HTTP"
     vpc_id = var.vpc-id
+    health_check {
+      path = "/api/analytics-service/health"
+    }
 }
 
 resource "aws_lb_target_group" "data" {
@@ -30,6 +36,9 @@ resource "aws_lb_target_group" "data" {
     port = 80
     protocol = "HTTP"
     vpc_id = var.vpc-id
+    health_check {
+      path = "/api/data-service/health"
+    }
 }
 
 resource "aws_ecs_task_definition" "data_task" {
@@ -40,7 +49,7 @@ resource "aws_ecs_task_definition" "data_task" {
           name = "data-container"
           image = var.data-image,
           cpu = 1
-          memory = 2
+          memory = 256
           portMappings = [
               {
                   containerPort = 8000
@@ -59,7 +68,7 @@ resource "aws_ecs_task_definition" "analytics_task" {
           name = "analytics-container"
           image = var.analytics-image,
           cpu = 1
-          memory = 2
+          memory = 256
           portMappings = [
               {
                   containerPort = 8000
@@ -77,7 +86,7 @@ resource "aws_ecs_task_definition" "dashboard_task" {
           name = "dashboard-container"
           image = var.dashboard-image,
           cpu = 1
-          memory = 2
+          memory = 256
           portMappings = [
               {
                   containerPort = 5000

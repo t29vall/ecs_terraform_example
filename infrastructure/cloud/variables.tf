@@ -2,19 +2,19 @@
 variable "ecs-cluster" {
     description = "ECS Cluster"
     type        = string
-    default     = "arn:aws:ecs:us-east-1:758213233865:cluster/test"
+    default     = "arn:aws:ecs:us-east-1:758213233865:cluster/cluster3"
 }
 
 variable "vpc-id" {
     description = "VPC ID"
     type        = string
-    default     = "vpc-04638d563afa770ee"
+    default     = "vpc-7fc57102"
 }
 
 variable "alb-subnets" {
     description = "ALB Subnets"
     type        = list(string)
-    default     = ["subnet-07cd2f8a830a24854", "subnet-00e699c55e56db711"]
+    default     = ["subnet-321db103", "subnet-fa8de8a5"]
 }
 
 variable "dashboard-image" {

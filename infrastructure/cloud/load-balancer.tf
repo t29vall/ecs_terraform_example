@@ -10,7 +10,7 @@ resource "aws_security_group_rule" "argos_ingress_rule" {
     from_port = 80
     to_port = 80
     protocol = "tcp"
-    cidr_blocks = ["10.0.0.0/24"]
+    cidr_blocks = ["0.0.0.0/0"]
     security_group_id = aws_security_group.argos_alb_sg.id
 }
 
@@ -19,7 +19,7 @@ resource "aws_security_group_rule" "argos_egress_rule" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_blocks = ["10.0.0.0/24"]
+    cidr_blocks = ["0.0.0.0/0"]
     security_group_id = aws_security_group.argos_alb_sg.id
 }
 
@@ -28,7 +28,7 @@ resource "aws_alb" "argos_alb" {
     security_groups = [aws_security_group.argos_alb_sg.id]
     subnets = var.alb-subnets
     load_balancer_type = "application"
-    internal = true
+    internal = false
 }
 
 resource "aws_alb_listener" "service_listener" {
