@@ -56,7 +56,7 @@ resource "aws_alb_listener" "service_listener" {
 
 resource "aws_lb_listener_rule" "data_listener_rule" {
     listener_arn = aws_alb_listener.service_listener.arn
-    priority = 100
+    priority = 1
     action {
         type = "forward"
         target_group_arn = aws_lb_target_group.data.arn
@@ -71,7 +71,7 @@ resource "aws_lb_listener_rule" "data_listener_rule" {
 
 resource "aws_lb_listener_rule" "analytics_listener_rule" {
     listener_arn = aws_alb_listener.service_listener.arn
-    priority = 99
+    priority = 2
     action {
         type = "forward"
         target_group_arn = aws_lb_target_group.analytics.arn
@@ -86,7 +86,7 @@ resource "aws_lb_listener_rule" "analytics_listener_rule" {
 
 resource "aws_lb_listener_rule" "dashboard_listener_rule" {
     listener_arn = aws_alb_listener.service_listener.arn
-    priority = 98
+    priority = 3
     action {
         type = "forward"
         target_group_arn = aws_lb_target_group.dashboard.arn
